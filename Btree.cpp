@@ -87,6 +87,7 @@ void levelOrder(Node *root){
         }
     }
 }
+//height calculate
 int height(Node * root){
     if(root==NULL){
         return 0;
@@ -96,6 +97,7 @@ int height(Node * root){
 
     return max(leftht, rightht) + 1;
 }
+//count number of node
 int countNode(Node *root)
 {
     if (root == NULL)
@@ -107,6 +109,7 @@ int countNode(Node *root)
 
     return leftcount+rightcount+ 1;
 }
+//sumof node
 int sumOfnode(Node * root)
 {
     if (root == NULL)
@@ -118,7 +121,16 @@ int sumOfnode(Node * root)
 
     return leftsum + rightsum +root->data;
 }
-
+//transform to sumtree
+int Sumtree(Node * root){
+    if(root==NULL){
+        return 0;
+    }
+    int leftsum = Sumtree(root->left);
+    int rightsum = Sumtree(root->right);
+    root->data += leftsum + rightsum;
+    return root->data;
+}
 int main(){
 
     vector<int> preorder = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
@@ -136,6 +148,10 @@ int main(){
     cout << countNode(root);
     cout << endl;
     cout << sumOfnode(root);
+    cout << endl;
+    Sumtree(root);
+    cout << "After :";
+    preOrder(root);
 
     return 0;
 }
